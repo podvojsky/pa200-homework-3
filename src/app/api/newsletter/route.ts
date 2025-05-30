@@ -19,6 +19,7 @@ export async function POST(req: Request) {
 
 	try {
 		await sendToQueue(
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			emailList.map((email: any) => ({
 				body: { email, message },
 			}))
