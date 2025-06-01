@@ -23,25 +23,11 @@ jobs:
         with:
           node-version: '20.x'
 
-      - name: npm install, build, and test
-        env:
-          SERVICE_BUS_CONNECTION_STRING: ${{ secrets.SERVICE_BUS_CONNECTION_STRING }}
-          SERVICE_BUS_QUEUE_NAME: ${{ secrets.SERVICE_BUS_QUEUE_NAME }}
-        run: |
-          npm install
-          npm run build --if-present
-          npm run test --if-present
-
-      - name: Copy static files
-        run: |
-          cp -R ./public ./.next/standalone/public
-          cp -R ./.next/static ./.next/standalone/.next/static
-
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: node-app
-          path: .next/standalone
+          path: .
 
   deploy:
     runs-on: ubuntu-latest
